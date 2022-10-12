@@ -2,13 +2,12 @@ FROM node:16.15.1-alpine
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY . ./
-RUN npm install  
-RUN npm install react-scripts@3.4.1 -g 
 RUN npm install -g npm@8.19.2
 RUN npm install @mui/icons-material --force
 RUN npm install @material-ui/core@4.12.4 --force
 RUN npm install @material-ui/types --force
 RUN npm install @types/react 
-
+RUN npm install  
+RUN npm install react-scripts@3.4.1 -g 
 
 CMD ["npm", "run", "start"]
