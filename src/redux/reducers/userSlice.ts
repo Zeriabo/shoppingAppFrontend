@@ -39,7 +39,7 @@ export const fetchUser: any = createAsyncThunk("users/getUser", async () => {
     image: undefined,
   };
   const response = await fetch(
-    process.env.REACT_APP_SERVER_URL + "/users/login/success",
+    "https://zshopping-backend.herokuapp.com/api/v1/users/login/success",
     {
       method: "GET",
       headers: {
@@ -70,7 +70,7 @@ export const getHistory: any = createAsyncThunk(
   "users/getHistory",
   async (userId: any) => {
     const response: any = await fetch(
-      process.env.REACT_APP_SERVER_URL + "/carts/paid/" + userId
+      "https://zshopping-backend.herokuapp.com/api/v1/carts/paid/" + userId
     );
     const res = await response.json();
     console.log(res);
@@ -85,7 +85,9 @@ export const checkUserCart: any = createAsyncThunk(
     var userId = null;
     var cart: any = null;
     const gettingUserID = axios
-      .get(process.env.REACT_APP_SERVER_URL + "/users/get/" + user.email)
+      .get(
+        "https://zshopping-backend.herokuapp.com/api/v1/users/get/" + user.email
+      )
       .then((response: any) => {
         if (response.data.body.result[0].email == user.email) {
           var userId = response.data.body.result[0].id;
@@ -94,7 +96,7 @@ export const checkUserCart: any = createAsyncThunk(
         } else {
           //user is not in user table and doesn't have a cart
           axios
-            .post(process.env.REACT_APP_SERVER_URL + "/users/", {
+            .post("https://zshopping-backend.herokuapp.com/api/v1/users/", {
               body: user,
             })
             .then((res: any) => console.log(res));
@@ -106,25 +108,25 @@ export const checkUserCart: any = createAsyncThunk(
 
     if (userId > 0) {
       const cartApi = await axios.get(
-        process.env.REACT_APP_SERVER_URL + "/carts/user/" + userId
+        "https://zshopping-backend.herokuapp.com/api/v1/carts/user/" + userId
       );
       if (cartApi.data[0] != undefined) {
         return cartApi.data[0];
       } else {
         axios
-          .post(process.env.REACT_APP_SERVER_URL + "/users/", {
+          .post("https://zshopping-backend.herokuapp.com/api/v1/users/", {
             user,
           })
           .then((res) => res)
           .catch((err) => console.log(err));
         axios
-          .post(process.env.REACT_APP_SERVER_URL + "/carts/", {
+          .post("https://zshopping-backend.herokuapp.com/api/v1/carts/", {
             userId: user.id,
           })
           .then((res) => res)
           .catch((err) => console.log(err));
         const cartApi = await axios.get(
-          process.env.REACT_APP_SERVER_URL + "/carts/user/",
+          "https://zshopping-backend.herokuapp.com/api/v1/carts/user/",
           { params: { userId: userId } }
         );
         return cartApi.data[0];
