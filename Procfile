@@ -1,1 +1,1 @@
-'web:  npx serve build
+'web:  serve -s build

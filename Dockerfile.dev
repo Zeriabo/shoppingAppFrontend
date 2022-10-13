@@ -12,6 +12,7 @@ RUN npm install -g npm@8.19.2
 # Build the app
 RUN  yarn install
 RUN  yarn build
+RUN  yarn global add serve
 # ==== RUN =======
 # Set the env to "production"
 ENV NODE_ENV production
