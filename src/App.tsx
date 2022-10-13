@@ -32,7 +32,7 @@ function App() {
  
     <BrowserRouter>
       <Routes>
-         <Route path="/" element={<Home state={state} />}></Route>
+        {(state.categories.categories!=undefined)?   <Route path="/" element={<Home state={state} />}></Route>:<Route path="/" element={<NoPage />}></Route>}
 
        
           <Route path="*" element={<NoPage />} />
