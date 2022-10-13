@@ -39,7 +39,7 @@ export const fetchUser: any = createAsyncThunk("users/getUser", async () => {
     image: undefined,
   };
   const response = await fetch(
-    process.env.REACT_APP_SERVER_URL + "/users/login/success",
+    "https://zshopping-backend.herokuapp.com/api/v1/users/login/success",
     {
       method: "GET",
       headers: {
@@ -71,7 +71,7 @@ export const getHistory: any = createAsyncThunk(
   "users/getHistory",
   async (userId: any) => {
     const response: any = await fetch(
-      "https://zshopping-backend.herokuapp.com/api/v1//carts/paid/" + userId
+      "https://zshopping-backend.herokuapp.com/api/v1/carts/paid/" + userId
     );
     const res = await response.json();
     console.log(res);
@@ -87,8 +87,7 @@ export const checkUserCart: any = createAsyncThunk(
     var cart: any = null;
     const gettingUserID = axios
       .get(
-        "https://zshopping-backend.herokuapp.com/api/v1//users/get/" +
-          user.email
+        "https://zshopping-backend.herokuapp.com/api/v1/users/get/" + user.email
       )
       .then((response: any) => {
         if (response.data.body.result[0].email == user.email) {
@@ -98,7 +97,7 @@ export const checkUserCart: any = createAsyncThunk(
         } else {
           //user is not in user table and doesn't have a cart
           axios
-            .post("https://zshopping-backend.herokuapp.com/api/v1//users/", {
+            .post("https://zshopping-backend.herokuapp.com/api/v1/users/", {
               body: user,
             })
             .then((res: any) => console.log(res));
@@ -116,13 +115,13 @@ export const checkUserCart: any = createAsyncThunk(
         return cartApi.data[0];
       } else {
         axios
-          .post("https://zshopping-backend.herokuapp.com/api/v1//users/", {
+          .post("https://zshopping-backend.herokuapp.com/api/v1/users/", {
             user,
           })
           .then((res) => res)
           .catch((err) => console.log(err));
         axios
-          .post("https://zshopping-backend.herokuapp.com/api/v1//carts/", {
+          .post("https://zshopping-backend.herokuapp.com/api/v1/carts/", {
             userId: user.id,
           })
           .then((res) => res)
