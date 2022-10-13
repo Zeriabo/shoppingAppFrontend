@@ -27,7 +27,7 @@ var untouch: any = [];
 
 export const fetchProducts: any = createAsyncThunk("getProducts", async () => {
   const response = await fetch(
-    process.env.REACT_APP_SERVER_URL + "/products/",
+    "https://zshopping-backend.herokuapp.com/api/v1//products/",
     {
       method: "GET",
       headers: {
