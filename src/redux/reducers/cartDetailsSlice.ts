@@ -35,18 +35,15 @@ export const addProductToCartDetails: any = createAsyncThunk(
   async (data: any) => {
     const cartId = data.cartId;
     const productId = data.id;
-    await fetch(
-      "https://zshopping-backend.herokuapp.com/api/v1/cartdetails/" + cartId,
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": "true",
-        },
-        body: JSON.stringify({ productId: productId }),
-      }
-    );
+    await fetch(process.env.REACT_APP_SERVER_URL + "/cartdetails/" + cartId, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": "true",
+      },
+      body: JSON.stringify({ productId: productId }),
+    });
   }
 );
 export const checkOut: any = createAsyncThunk(
@@ -54,22 +51,19 @@ export const checkOut: any = createAsyncThunk(
   async (id: any) => {
     const cartId = id;
 
-    await fetch(
-      "https://zshopping-backend.herokuapp.com/api/v1/carts/" + cartId,
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": "true",
-        },
-      }
-    );
+    await fetch(process.env.REACT_APP_SERVER_URL + "/carts/" + cartId, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": "true",
+      },
+    });
   }
 );
 export const getCartDetails = (id: any) => {
   axios
-    .get("https://zshopping-backend.herokuapp.com/api/v1/cartdetails/" + id)
+    .get(process.env.REACT_APP_SERVER_URL + "/cartdetails/" + id)
     .then((res) => {
       //cartid
       return res.data;
@@ -81,8 +75,7 @@ export const removeProductFromCartDetails: any = createAsyncThunk(
     console.log(data);
     const id = data.id; //productId
     fetch(
-      "https://zshopping-backend.herokuapp.com/api/v1/cartdetails/remove/" +
-        data.cartId,
+      process.env.REACT_APP_SERVER_URL + "/cartdetails/remove/" + data.cartId,
       {
         method: "POST",
         headers: {
