@@ -96,12 +96,11 @@ const Navbar = () => {
   let history= useSelector((state:RootState)=>state.rootReducer.user.history);
 
   const signin= ()=>{
-    window.open(process.env.REACT_APP_SERVER_URL+'/users/auth/account/',"_self")
+    window.open('https://zshopping-backend.herokuapp.com/api/v1/users/auth/account/',"_self")
   }
    const signout= ()=>{
     dispatch(logout)
-    window.open(process.env.REACT_APP_SERVER_URL+'/users/logout',"_self")
-
+    window.open('https://zshopping-backend.herokuapp.com/api/v1/users/logout',"_self")
   } 
 
 const search=(text:any)=>{
