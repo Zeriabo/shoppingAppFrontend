@@ -34,6 +34,7 @@ export const fetchProducts: any = createAsyncThunk("getProducts", async () => {
         Accept: "application/json",
         "Content-Type": "application/json",
         "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Origin": "*",
       },
     }
   );

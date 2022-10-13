@@ -41,6 +41,7 @@ export const addProductToCartDetails: any = createAsyncThunk(
         Accept: "application/json",
         "Content-Type": "application/json",
         "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({ productId: productId }),
     });
@@ -57,6 +58,7 @@ export const checkOut: any = createAsyncThunk(
         Accept: "application/json",
         "Content-Type": "application/json",
         "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Origin": "*",
       },
     });
   }
@@ -82,6 +84,7 @@ export const removeProductFromCartDetails: any = createAsyncThunk(
           Accept: "application/json",
           "Content-Type": "application/json",
           "Access-Control-Allow-Credentials": "true",
+          "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify({ productId: data.id }),
       }
