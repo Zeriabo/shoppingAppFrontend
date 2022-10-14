@@ -120,8 +120,6 @@ const search=(text:any)=>{
       <Center>
         <Logo>ZShopping</Logo>
       </Center>
- 
-      {(userState.user.id!=undefined)?  null: <MenuItem onClick={()=>console.log("register")}>REGISTER</MenuItem>  }
         {(userState.user.id!=undefined)?   <Avatar
         alt={userState.user.name}
         src={userState.user.image}
