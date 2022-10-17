@@ -11,7 +11,7 @@ import { fetchUser, getHistory, logout, signin } from "../redux/reducers/userSli
 import { ICartItem ,IProductToAdd} from "../types/types";
 import Cart from "./Cart/Cart";
 import History from "./History/History"
-import { Avatar } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { TextField } from '@mui/material';
 import { addProduct, addProductToCartDetails, checkOut, empty, removeProduct, removeProductFromCartDetails } from "../redux/reducers/cartDetailsSlice";
@@ -114,7 +114,8 @@ const search=(text:any)=>{
         <Language>EN</Language>
         <SearchContainer>
          <TextField id="search" type="text"  />
-         <Link to="products" spy={true} smooth={true}>      <SearchIcon onClick={()=>search(document.getElementById("search").value)} sx={{ "&:hover": { cursor: "pointer" } }}/></Link>
+         <Link to="products" spy={true} smooth={true}>     
+          <SearchIcon onClick={()=>search(document.getElementById("search").value)} sx={{ "&:hover": { cursor: "pointer" } }}/></Link>
         </SearchContainer>
       </Left>
       <Center>
@@ -124,7 +125,10 @@ const search=(text:any)=>{
         alt={userState.user.name}
         src={userState.user.image}
         sx={{ width: 56, height: 56 }}
-      />: <MenuItem onClick={()=>signin()}>SIGN IN</MenuItem>  }
+      />: 
+      <Button variant="contained" disableElevation onClick={()=>signin()}>
+    SIGN IN
+    </Button> }
        {(userState.user.id!=undefined)? <MenuItem onClick={()=>signout()}>LOGOUT</MenuItem>  :null }
 
 

@@ -109,7 +109,7 @@ export const checkUserCart: any = createAsyncThunk(
 
     if (userId > 0) {
       const cartApi = await axios.get(
-        "https://zshopping-backend.herokuapp.com/api/v1//carts/user/" + userId
+        "https://zshopping-backend.herokuapp.com/api/v1/carts/user/" + userId
       );
       if (cartApi.data[0] != undefined) {
         return cartApi.data[0];
@@ -127,7 +127,7 @@ export const checkUserCart: any = createAsyncThunk(
           .then((res) => res)
           .catch((err) => console.log(err));
         const cartApi = await axios.get(
-          "https://zshopping-backend.herokuapp.com/api/v1//carts/user/",
+          "https://zshopping-backend.herokuapp.com/api/v1/carts/user/",
           { params: { userId: userId } }
         );
         return cartApi.data[0];
