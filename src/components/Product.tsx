@@ -85,9 +85,8 @@ const Product = ( item :any) => {
  
   const checkIfLiked=(item:any)=>{
 
-
-    const prod :any= likedProducts.find((foundproduct:any) => (item.id === foundproduct.id));
-    return prod;
+    // const prod :any= likedProducts.find((foundproduct:any) => (item.id === foundproduct.id));
+    // return prod;
   
      
     }

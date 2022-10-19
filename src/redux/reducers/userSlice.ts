@@ -31,6 +31,23 @@ const initialState: UsersState = {
   history: {},
 };
 
+export const loginUser: any = createAsyncThunk(
+  "users/login",
+  async (loggedUser: any) => {
+    const response = await axios.post(
+      "http://localhost:5001/api/v1/users/login",
+      {
+        user: loggedUser,
+      }
+    );
+    return response.data;
+  }
+);
+
+export const signOut: any = createAsyncThunk("users/logout", async () => {
+  const response = await axios.get("http://localhost:5001/api/v1/users/logout");
+  return response.data;
+});
 export const fetchUser: any = createAsyncThunk("users/getUser", async () => {
   const userObj: IUser = {
     id: undefined,
@@ -74,7 +91,6 @@ export const getHistory: any = createAsyncThunk(
       "https://zshopping-backend.herokuapp.com/api/v1/carts/paid/" + userId
     );
     const res = await response.json();
-    console.log(res);
     return res;
   }
 );
@@ -177,7 +193,23 @@ export const userSlice = createSlice({
           state.user = action.payload;
         }
       ),
-      builder.addCase(fetchUser.rejected, (state, action) => {
+      builder.addCase(
+        loginUser.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.loading = "succeeded";
+          state.user.email = action.payload.email;
+          state.user.id = action.payload.googleId;
+          state.user.image = action.payload.imageUrl;
+          state.user.name = action.payload.name;
+        }
+      ),
+      builder.addCase(signOut.fulfilled, (state, action) => {
+        state.loading = "idle";
+        state.cart = undefined;
+        state.history = initialState.history;
+        state.user = initialState.user;
+      }),
+      builder.addCase(fetchUser.rejected, (state) => {
         state.loading = "failed";
       });
     //cartChecked

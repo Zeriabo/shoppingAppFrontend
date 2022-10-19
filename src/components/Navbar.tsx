@@ -1,14 +1,14 @@
 import { Badge, Drawer } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
-import axios from "axios";
-import React, {  useState } from "react";
+import axios, { AxiosResponse } from "axios";
+import React, {  useEffect, useState } from "react";
 import { config } from "dotenv";
 import { useSelector,useDispatch } from 'react-redux';
 import styled from "styled-components";
 import { RootState } from "../redux/app/store";
 import { mobile } from "../responsive";
-import { fetchUser, getHistory, logout, signin } from "../redux/reducers/userSlice";
-import { ICartItem ,IProductToAdd} from "../types/types";
+import { fetchUser, getHistory, loginUser, logout, signin, signOut } from "../redux/reducers/userSlice";
+import { ICartItem ,IProductToAdd, IUser} from "../types/types";
 import Cart from "./Cart/Cart";
 import History from "./History/History"
 import { Avatar, Button } from "@mui/material";
@@ -18,7 +18,8 @@ import { addProduct, addProductToCartDetails, checkOut, empty, removeProduct, re
 import HistoryIcon from '@mui/icons-material/History';
 import { searchProduct } from "../redux/reducers/productsSlice";
 import {Link} from 'react-scroll'
-
+import { GoogleLogin } from 'react-google-login';
+import { gapi } from 'gapi-script';
 
 const Container = styled.div`
   height: 60px;
@@ -81,7 +82,10 @@ const MenuItem = styled.div`
   margin-left: 25px;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
-
+interface AuthResponse {
+  token: string;
+  user: IUser;
+}
 const inputProps = {
   step: 300,
 };
@@ -95,21 +99,46 @@ const Navbar = () => {
   const products=useSelector((state:RootState)=>state.rootReducer.products.products);
   let history= useSelector((state:RootState)=>state.rootReducer.user.history);
 
-  const signin= ()=>{
-    window.open('https://zshopping-backend.herokuapp.com/api/v1/users/auth/account',"_self")
-  }
+  useEffect(() => {
+    function start() {
+    gapi.client.init({
+    clientId : "797646089844-ogvj7dpqn4ma2eunjmojiu0r5mfdcuse.apps.googleusercontent.com",
+    scope : 'profile'
+    })
+    };
+    gapi.load('client:auth2',start);
+    });
+
    const signout= ()=>{
-    dispatch(logout)
-    window.open('https://zshopping-backend.herokuapp.com/api/v1/users/logout',"_self")
+    dispatch(signOut());
   } 
 
 const search=(text:any)=>{
  dispatch(searchProduct(text))
 }
-  
+const responseSuccessGoogle = async (res: any) => {
+  const profile= res.profileObj;
+  const token = res.tokenId;
+  var loggedUser = {
+    profile,
+    token
+  }
+  try {
+    dispatch(loginUser(loggedUser))
+  } catch (err:any) {
+    console.log(err);
+    
+
+  }
+};
+const responseFailureGoofle = async(err:any)=>{
+  console.log(err)
+   
+}
   return (
     <Container>
     <Wrapper>
+  
       <Left>
         <Language>EN</Language>
         <SearchContainer>
@@ -121,14 +150,25 @@ const search=(text:any)=>{
       <Center>
         <Logo>ZShopping</Logo>
       </Center>
-        {(userState.user.id!=undefined)?   <Avatar
+        {(userState.user.id!=undefined)? 
+          <Avatar
         alt={userState.user.name}
         src={userState.user.image}
         sx={{ width: 56, height: 56 }}
-      />: 
-      <Button variant="contained" disableElevation onClick={()=>signin()}>
-    SIGN IN
-    </Button> }
+      
+      />
+      : 
+
+      <GoogleLogin
+      clientId="797646089844-ogvj7dpqn4ma2eunjmojiu0r5mfdcuse.apps.googleusercontent.com"
+      onSuccess={responseSuccessGoogle}
+      onFailure={responseFailureGoofle}
+      cookiePolicy={'single_host_origin'}
+      scope="profile"
+
+    />
+   
+ }
        {(userState.user.id!=undefined)? <MenuItem onClick={()=>signout()}>LOGOUT</MenuItem>  :null }
 
 
