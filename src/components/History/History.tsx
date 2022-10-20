@@ -3,17 +3,9 @@ import { ICart, ICartItem } from '../../types/types';
 import { Wrapper } from './History.styles';
 
 
-type Props = {
-  carts: ICart[] ;
-  cartTotal:number |undefined;
-  paid:boolean |undefined;
-  createdAt:string|undefined;
-  updatedAt:string|undefined;
-  view: (clickedItem: ICartItem) => void;
 
-};
 
-const History: React.FC<Props> = ({ carts, view }) => {
+const History: React.FC<any> = ({ carts }) => {
 
   return (
     <Wrapper>

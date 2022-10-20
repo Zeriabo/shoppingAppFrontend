@@ -7,7 +7,7 @@ import { useSelector,useDispatch } from 'react-redux';
 import styled from "styled-components";
 import { RootState } from "../redux/app/store";
 import { mobile } from "../responsive";
-import { fetchUser, getHistory, loginUser, logout, signin, signOut } from "../redux/reducers/userSlice";
+import { checkUserCart, fetchUser, getHistory, loginUser, logout, signin, signOut } from "../redux/reducers/userSlice";
 import { ICartItem ,IProductToAdd, IUser} from "../types/types";
 import Cart from "./Cart/Cart";
 import History from "./History/History"
@@ -98,7 +98,6 @@ const Navbar = () => {
   const cart=useSelector((state:RootState)=>state.rootReducer.cartDetails); 
   const products=useSelector((state:RootState)=>state.rootReducer.products.products);
   let history= useSelector((state:RootState)=>state.rootReducer.user.history);
-
   useEffect(() => {
     function start() {
     gapi.client.init({
@@ -124,7 +123,9 @@ const responseSuccessGoogle = async (res: any) => {
     token
   }
   try {
-    dispatch(loginUser(loggedUser))
+   await dispatch(loginUser(loggedUser))
+   await dispatch(checkUserCart(loggedUser.profile))
+    
   } catch (err:any) {
     console.log(err);
     
@@ -170,14 +171,9 @@ const responseFailureGoofle = async(err:any)=>{
    
  }
        {(userState.user.id!=undefined)? <MenuItem onClick={()=>signout()}>LOGOUT</MenuItem>  :null }
-
-
-
        {(userState.user.id!=undefined)?      <MenuItem onClick={()=>  dispatch(getHistory(userState.cart.userId))}>
    <Drawer anchor='right' open={historyOpen}  onClose={() => setHistoryOpen(false)}>
-  {(history!=null)?  <History carts={history} view={function (clickedItem: ICartItem): void {
-              throw new Error("Function not implemented.");
-            } } cartTotal={undefined} paid={undefined} createdAt={undefined} updatedAt={undefined}             />:null}
+  {(history!=null)?  <History carts={history}           />:null}
       
        </Drawer>
 
