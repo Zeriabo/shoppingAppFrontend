@@ -92,12 +92,12 @@ const Slider = () => {
 
   return (
     <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
+      <Arrow  onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>
-      <Wrapper slideIndex={slideIndex}>
+      <Wrapper >
         {sliderItems.map((item) => (
-          <Slide bg={item.bg} key={item.id}>
+          <Slide key={item.id}>
             <ImgContainer>
               <Image src={item.img} />
             </ImgContainer>
@@ -109,7 +109,7 @@ const Slider = () => {
           </Slide>
         ))}
       </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick("right")}>
+      <Arrow  onClick={() => handleClick("right")}>
         <ArrowRightOutlined />
       </Arrow>
     </Container>

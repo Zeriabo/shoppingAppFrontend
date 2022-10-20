@@ -34,7 +34,7 @@ const History: React.FC<any> = ({ carts }) => {
     
       </table>
       <h2>Total: {carts.length}</h2>
-      <h2>Total Purchases: {carts.reduce((accumulator, obj:any) => { return accumulator + obj.price;},
+      <h2>Total Purchases: {carts.reduce((accumulator:any, obj:any) => { return accumulator + obj.price;},
   0)}</h2>
     </Wrapper>
   );

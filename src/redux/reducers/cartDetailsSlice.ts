@@ -82,20 +82,24 @@ export const removeProductFromCartDetails: any = createAsyncThunk(
   async (data: any) => {
     console.log(data);
     const id = data.id; //productId
-    fetch(
-      "https://zshopping-backend.herokuapp.com/api/v1/cartdetails/remove/" +
-        data.cartId,
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": "true",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({ productId: data.id }),
-      }
-    );
+    try {
+      fetch(
+        "https://zshopping-backend.herokuapp.com/api/v1/cartdetails/remove/" +
+          data.cartId,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify({ productId: data.id }),
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
   }
 );
 

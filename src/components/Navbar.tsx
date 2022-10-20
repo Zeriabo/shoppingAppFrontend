@@ -93,6 +93,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const [cartOpen, setCartOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
   const [cartItems, setCartItems] = useState([] as ICartItem[]);
   const userState=useSelector((state:RootState)=>state.rootReducer.user); 
   const cart=useSelector((state:RootState)=>state.rootReducer.cartDetails); 
@@ -143,9 +144,11 @@ const responseFailureGoofle = async(err:any)=>{
       <Left>
         <Language>EN</Language>
         <SearchContainer>
-         <TextField id="search" type="text"  />
-         <Link to="products" spy={true} smooth={true}>     
-          <SearchIcon onClick={()=>search(document.getElementById("search").value)} sx={{ "&:hover": { cursor: "pointer" } }}/></Link>
+         <TextField id="search" type="text" onClick={()=>console.log(this)} />
+         <Link to="products" spy={true} smooth={true}>  
+    
+          <SearchIcon onClick={()=>search("")} sx={{ "&:hover": { cursor: "pointer" } }}/>
+          </Link>
         </SearchContainer>
       </Left>
       <Center>
