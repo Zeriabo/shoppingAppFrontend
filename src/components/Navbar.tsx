@@ -173,7 +173,7 @@ const responseFailureGoofle = async(err:any)=>{
        {(userState.user.id!=undefined)? <MenuItem onClick={()=>signout()}>LOGOUT</MenuItem>  :null }
        {(userState.user.id!=undefined)?      <MenuItem onClick={()=>  dispatch(getHistory(userState.cart.userId))}>
    <Drawer anchor='right' open={historyOpen}  onClose={() => setHistoryOpen(false)}>
-  {(history!=null)?  <History carts={history}           />:null}
+  {(history.length>0)?  <History carts={history}           />:null}
       
        </Drawer>
 

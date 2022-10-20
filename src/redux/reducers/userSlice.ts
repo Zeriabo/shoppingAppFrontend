@@ -88,6 +88,7 @@ export const fetchUser: any = createAsyncThunk("users/getUser", async () => {
 export const getHistory: any = createAsyncThunk(
   "users/getHistory",
   async (userId: any) => {
+    console.log("getting history");
     const response: any = await fetch(
       "https://zshopping-backend.herokuapp.com/api/v1/carts/paid/" + userId
     );
