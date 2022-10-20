@@ -164,7 +164,7 @@ const responseFailureGoofle = async(err:any)=>{
       : 
 
       <GoogleLogin
-      clientId="797646089844-ogvj7dpqn4ma2eunjmojiu0r5mfdcuse.apps.googleusercontent.com"
+      clientId="526384017782-eqj8t30k9huf9fu1dq9cvtbl6e6pif7h.apps.googleusercontent.com"
       onSuccess={responseSuccessGoogle}
       onFailure={responseFailureGoofle}
       cookiePolicy={'single_host_origin'}

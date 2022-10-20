@@ -35,7 +35,7 @@ export const loginUser: any = createAsyncThunk(
   "users/login",
   async (loggedUser: any) => {
     const response = await axios.post(
-      "http://localhost:5001/api/v1/users/login",
+      "https://zshopping-backend.herokuapp.com/api/v1/users/login",
       {
         user: loggedUser,
       }
@@ -46,7 +46,9 @@ export const loginUser: any = createAsyncThunk(
 );
 
 export const signOut: any = createAsyncThunk("users/logout", async () => {
-  const response = await axios.get("http://localhost:5001/api/v1/users/logout");
+  const response = await axios.get(
+    "https://zshopping-backend.herokuapp.com/api/v1/users/logout"
+  );
   return response.data;
 });
 export const fetchUser: any = createAsyncThunk("users/getUser", async () => {
