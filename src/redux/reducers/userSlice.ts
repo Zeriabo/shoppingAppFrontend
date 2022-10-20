@@ -40,7 +40,6 @@ export const loginUser: any = createAsyncThunk(
         user: loggedUser,
       }
     );
-
     return response.data;
   }
 );
