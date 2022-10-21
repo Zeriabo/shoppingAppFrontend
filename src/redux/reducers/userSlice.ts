@@ -38,6 +38,12 @@ export const loginUser: any = createAsyncThunk(
       "https://zshopping-backend.herokuapp.com/api/v1/users/login",
       {
         user: loggedUser,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
       }
     );
     return response.data;
@@ -89,7 +95,6 @@ export const fetchUser: any = createAsyncThunk("users/getUser", async () => {
 export const getHistory: any = createAsyncThunk(
   "users/getHistory",
   async (userId: any) => {
-    console.log("getting history");
     const response: any = await fetch(
       "https://zshopping-backend.herokuapp.com/api/v1/carts/paid/" + userId
     );
@@ -102,8 +107,6 @@ export const getHistory: any = createAsyncThunk(
 export const checkUserCart: any = createAsyncThunk(
   "users/checkUserCart",
   async (user: IUser) => {
-    console.log("checking cart");
-    console.log(user);
     var userId = null;
     var cart: any = null;
     const gettingUserID = axios
@@ -111,7 +114,6 @@ export const checkUserCart: any = createAsyncThunk(
         "https://zshopping-backend.herokuapp.com/api/v1/users/get/" + user.email
       )
       .then((response: any) => {
-        console.log(response);
         if (response.data.body.result[0].email == user.email) {
           var userId = response.data.body.result[0].id;
 

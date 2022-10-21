@@ -10,11 +10,9 @@ import { RootState } from './redux/app/store';
 import { checkUserCart, fetchUser, getHistory} from './redux/reducers/userSlice';
 
 
-
 function App() {
   const dispatch= useDispatch()
-
-
+console.log("POrt :"+process.env.PORT)
   useEffect(() => {
 
      dispatch(fetchUser()).then((res:any)=>{

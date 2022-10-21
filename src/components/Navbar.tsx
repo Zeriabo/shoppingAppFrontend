@@ -102,7 +102,7 @@ const Navbar = () => {
   useEffect(() => {
     function start() {
     gapi.client.init({
-    clientId : process.env.CLIENT_ID,
+    clientId : "526384017782-eqj8t30k9huf9fu1dq9cvtbl6e6pif7h.apps.googleusercontent.com",
     scope : 'profile'
     })
     };
