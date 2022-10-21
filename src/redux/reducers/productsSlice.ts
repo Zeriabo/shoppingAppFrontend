@@ -138,6 +138,12 @@ export const productsSlice = createSlice({
         };
       }
     },
+    resetfilterProducts(state) {
+      return {
+        ...state,
+        filteredProducts: state.products,
+      };
+    },
     likeUnlikeProduct(state, action) {
       console.log(action.payload);
       const found = state.likedProducts.filter(function (obj) {
@@ -208,5 +214,6 @@ export const {
   searchProduct,
   filterProducts,
   likeUnlikeProduct,
+  resetfilterProducts,
 } = productsSlice.actions;
 export default productsSlice.reducer;

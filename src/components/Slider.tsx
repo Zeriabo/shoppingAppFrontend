@@ -4,6 +4,14 @@ import { useState } from "react";
 import styled from "styled-components";
 import { sliderItems } from "./data";
 import { mobile } from "../responsive";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import Alert from "@mui/material/Alert";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from '../redux/app/store';
+import { setOpen } from "../redux/reducers/notificationsSlice";
 
 const Container = styled.div`
   width: 100%;
@@ -73,16 +81,19 @@ const Desc = styled.p`
   letter-spacing: 3px;
 `;
 
-const Button = styled.button`
-  padding: 10px;
-  font-size: 20px;
-  background-color: transparent;
-  cursor: pointer;
-`;
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
+  const [open, setOpened] = useState(false);
+  const dispatch= useDispatch();
+  const notificationState = useSelector(
+    (state: RootState) => state.rootReducer.notification
+  );  
+
+ 
+
   const handleClick = (direction:any) => {
+  
     if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
     } else {
@@ -92,6 +103,18 @@ const Slider = () => {
 
   return (
     <Container>
+          <Stack spacing={2} sx={{ width: "100%" }}>
+    
+      <Snackbar open={notificationState.open} autoHideDuration={3000}   onClose={() => dispatch(setOpen(false))}>
+        <Alert  severity={notificationState.severity} sx={{ width: "100%" }}>
+          { notificationState.text}
+        </Alert>
+      </Snackbar>
+      {/* <Alert severity="error">This is an error message!</Alert>
+      <Alert severity="warning">This is a warning message!</Alert>
+      <Alert severity="info">This is an information message!</Alert>
+      <Alert severity="success">This is a sdssuccess message!</Alert> */}
+    </Stack>
       <Arrow  onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>

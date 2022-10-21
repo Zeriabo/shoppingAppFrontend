@@ -16,10 +16,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import { TextField } from '@mui/material';
 import { addProduct, addProductToCartDetails, checkOut, empty, removeProduct, removeProductFromCartDetails } from "../redux/reducers/cartDetailsSlice";
 import HistoryIcon from '@mui/icons-material/History';
-import { searchProduct } from "../redux/reducers/productsSlice";
+import { resetfilterProducts, searchProduct } from "../redux/reducers/productsSlice";
 import {Link} from 'react-scroll'
 import { GoogleLogin } from 'react-google-login';
 import { gapi } from 'gapi-script';
+import { selectOpen, setSeverity } from "../redux/reducers/notificationsSlice";
+import { setOpen, setText } from "../redux/reducers/notificationsSlice";
 
 const Container = styled.div`
   height: 60px;
@@ -97,6 +99,7 @@ const Navbar = () => {
   const [cartItems, setCartItems] = useState([] as ICartItem[]);
   const userState=useSelector((state:RootState)=>state.rootReducer.user); 
   const cart=useSelector((state:RootState)=>state.rootReducer.cartDetails); 
+  const filteredproducts=useSelector((state:RootState)=>state.rootReducer.products.filteredProducts);
   const products=useSelector((state:RootState)=>state.rootReducer.products.products);
   let history= useSelector((state:RootState)=>state.rootReducer.user.history);
   useEffect(() => {
@@ -114,7 +117,29 @@ const Navbar = () => {
   } 
 
 const search=(text:any)=>{
- dispatch(searchProduct(text))
+ const originalSize=(products.length);
+ dispatch(searchProduct(text.value))
+
+ if(filteredproducts.length==0)
+ {
+  dispatch(setOpen(true));
+  dispatch(setText("Not Found!"));
+  dispatch(setSeverity("error"))
+ }else{
+  dispatch(setOpen(true));
+  dispatch(setText("Found!"));
+  dispatch(setSeverity("success"))
+ }
+}
+
+const searchChanged =(text:any)=>{
+  console.log(text.value)
+  console.log(text.value.length)
+if(text.value.length == 0)
+{
+  
+  dispatch(resetfilterProducts());
+}
 }
 const responseSuccessGoogle = async (res: any) => {
   const profile= res.profileObj;
@@ -144,10 +169,10 @@ const responseFailureGoofle = async(err:any)=>{
       <Left>
         <Language>EN</Language>
         <SearchContainer>
-         <TextField id="search" type="text" onClick={()=>console.log(this)} />
+         <TextField id="search" type="text"  label="" onChange={()=>searchChanged(document.getElementById("search"))}/>
          <Link to="products" spy={true} smooth={true}>  
     
-          <SearchIcon onClick={()=>search("")} sx={{ "&:hover": { cursor: "pointer" } }}/>
+          <SearchIcon onClick={()=>search(document.getElementById("search"))} sx={{ "&:hover": { cursor: "pointer" } }}/>
           </Link>
         </SearchContainer>
       </Left>

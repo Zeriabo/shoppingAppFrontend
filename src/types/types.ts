@@ -76,3 +76,9 @@ export interface ICart {
   paid: boolean | undefined;
   userId: number | undefined;
 }
+
+export interface INotification {
+  text: string | undefined;
+  open: boolean;
+  severity: "error" | "warning" | "info" | "success" | undefined;
+}
