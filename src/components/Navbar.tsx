@@ -236,8 +236,8 @@ const responseFailureGoofle = async(err:any)=>{
                 dispatch(removeProduct(productToRemove));
                 dispatch(removeProductFromCartDetails(productToRemove));
                 dispatch(setOpen(true));
-                dispatch(setText(" decreased the quantity of "+productToRemove.title ));
-                dispatch(setSeverity("success"))
+                dispatch(setText("decreased the quantity of "+productToRemove.title ));
+                dispatch(setSeverity("warning"))
               } } cartItems={cart.cartItems} checkOut={function (): void {
                 dispatch(checkOut(userState.cart.id))
                 dispatch(empty())
