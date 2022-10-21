@@ -38,13 +38,7 @@ export interface ICartItem {
   discount: number | any;
   image: string | undefined;
 }
-/*
-email
-    const family_name= myobj.passport.user.family_name
-      const given_name=myobj.passport.user.given_name
-      const name= myobj.passport.user.name
-      const picture= myobj.passport.user.picture
-*/
+
 export interface IUser {
   id: number | undefined;
   name: string | undefined;
@@ -81,4 +75,8 @@ export interface INotification {
   text: string | undefined;
   open: boolean;
   severity: "error" | "warning" | "info" | "success" | undefined;
+}
+export interface IFilteredProducts {
+  products: IProduct[] | undefined;
+  found: boolean;
 }

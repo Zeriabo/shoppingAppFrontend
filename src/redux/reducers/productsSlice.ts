@@ -139,10 +139,7 @@ export const productsSlice = createSlice({
       }
     },
     resetfilterProducts(state) {
-      return {
-        ...state,
-        filteredProducts: state.products,
-      };
+      state.filteredProducts = untouch;
     },
     likeUnlikeProduct(state, action) {
       console.log(action.payload);

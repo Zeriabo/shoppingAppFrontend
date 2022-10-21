@@ -12,6 +12,7 @@ import { elementTypeAcceptingRef } from "@mui/utils";
 import axios from "axios";
 import { useAppDispatch } from "../app/hooks";
 import { fetchCartDetails } from "./cartDetailsSlice";
+import { useDispatch } from "react-redux";
 
 export interface UsersState {
   user: IUser;

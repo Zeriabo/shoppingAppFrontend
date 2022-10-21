@@ -14,6 +14,7 @@ import { ICartItem, IProductToAdd } from "../types/types";
 import { nextTick } from "process";
 import { setZoomedImage } from "../redux/reducers/ZoomedImageSlice";
 import { likeUnlikeProduct } from "../redux/reducers/productsSlice";
+import { setOpen, setSeverity, setText } from "../redux/reducers/notificationsSlice";
 
 const Info = styled.div`
   opacity: 0;
@@ -119,8 +120,13 @@ const userCart=user.cart
   {
     dispatch(addProductToCartDetails(itemToAdd))
     dispatch(addProduct(itemToAdd))
+    dispatch(setOpen(true));
+    dispatch(setText(itemToAdd.title + " was added to cart"));
+    dispatch(setSeverity("info"))
   }else{
-    throw new Error("The user does not have a cart")
+    dispatch(setOpen(true));
+    dispatch(setText("The user does not have a cart"));
+    dispatch(setSeverity("error"))
   }
 
   }

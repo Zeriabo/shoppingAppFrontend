@@ -102,6 +102,7 @@ const Navbar = () => {
   const filteredproducts=useSelector((state:RootState)=>state.rootReducer.products.filteredProducts);
   const products=useSelector((state:RootState)=>state.rootReducer.products.products);
   let history= useSelector((state:RootState)=>state.rootReducer.user.history);
+
   useEffect(() => {
     function start() {
     gapi.client.init({
@@ -117,27 +118,15 @@ const Navbar = () => {
   } 
 
 const search=(text:any)=>{
- const originalSize=(products.length);
- dispatch(searchProduct(text.value))
 
- if(filteredproducts.length==0)
- {
-  dispatch(setOpen(true));
-  dispatch(setText("Not Found!"));
-  dispatch(setSeverity("error"))
- }else{
-  dispatch(setOpen(true));
-  dispatch(setText("Found!"));
-  dispatch(setSeverity("success"))
- }
+dispatch(searchProduct(text.value))
+
+
 }
 
 const searchChanged =(text:any)=>{
-  console.log(text.value)
-  console.log(text.value.length)
 if(text.value.length == 0)
 {
-  
   dispatch(resetfilterProducts());
 }
 }
@@ -149,19 +138,23 @@ const responseSuccessGoogle = async (res: any) => {
     token
   }
   try {
-   await dispatch(loginUser(loggedUser))
-   await dispatch(checkUserCart(loggedUser.profile))
-    
+   
+ await dispatch(loginUser(loggedUser))
+ await dispatch(checkUserCart(loggedUser.profile))
+ 
   } catch (err:any) {
-    console.log(err);
-    
-
+ 
+  dispatch(setOpen(true));
+  dispatch(setText(err));
+  dispatch(setSeverity("error"))
   }
 };
 const responseFailureGoofle = async(err:any)=>{
-  console.log(err)
-   
+  dispatch(setOpen(true));
+  dispatch(setText(err));
+  dispatch(setSeverity("error"))
 }
+
   return (
     <Container>
     <Wrapper>
@@ -209,13 +202,8 @@ const responseFailureGoofle = async(err:any)=>{
             <HistoryIcon />
           </Badge>
         </MenuItem> :null }
-
-
-
-
-
-       {(userState.user.id!=undefined)?      <MenuItem>
- 
+       {(userState.user.id!=undefined)?   
+          <MenuItem>
    <Drawer anchor='right' open={cartOpen}  onClose={() => setCartOpen(false)} >
         <Cart 
               cartTotal={cart.total} addToCart={function (clickedItem: any): void {
@@ -231,6 +219,9 @@ const responseFailureGoofle = async(err:any)=>{
                 };
                 dispatch(addProduct(productToadd));
                 dispatch(addProductToCartDetails(productToadd));
+                dispatch(setOpen(true));
+                dispatch(setText(" increased the quantity of "+productToadd.title ));
+                dispatch(setSeverity("success"))
               } } removeFromCart={function (clickedItem: ICartItem): void {
                 var productToRemove: IProductToAdd = {
                   id: clickedItem.id,
@@ -244,23 +235,24 @@ const responseFailureGoofle = async(err:any)=>{
                 };
                 dispatch(removeProduct(productToRemove));
                 dispatch(removeProductFromCartDetails(productToRemove));
+                dispatch(setOpen(true));
+                dispatch(setText(" decreased the quantity of "+productToRemove.title ));
+                dispatch(setSeverity("success"))
               } } cartItems={cart.cartItems} checkOut={function (): void {
                 dispatch(checkOut(userState.cart.id))
                 dispatch(empty())
+                dispatch(setOpen(true));
+                dispatch(setText(" Successfully bought total: " + cart.total));
+                dispatch(setSeverity("success"))
               } }   />
               
        </Drawer>
-
        <Badge badgeContent={cart.cartItems.length} color="primary" onClick={() => setCartOpen(true)}>
             <ShoppingCartOutlined />
           </Badge>
         </MenuItem> :null }
-   
-   
     </Wrapper>
- 
   </Container>
-  
   );
 };
 export default Navbar;
