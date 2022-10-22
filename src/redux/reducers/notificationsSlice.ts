@@ -12,6 +12,7 @@ const initialState: INotification = {
   text: undefined,
   open: false,
   severity: undefined,
+  duration: 3000,
 };
 
 export const NotificationSlice = createSlice({

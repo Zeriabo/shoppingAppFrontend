@@ -10,7 +10,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import Alert from "@mui/material/Alert";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from '../redux/app/store';
+import { RootState } from "../redux/app/store";
 import { setOpen } from "../redux/reducers/notificationsSlice";
 
 const Container = styled.div`
@@ -33,8 +33,8 @@ const Arrow = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: ${(props:any) => props.direction === "left" && "10px"};
-  right: ${(props:any) => props.direction === "right" && "10px"};
+  left: ${(props: any) => props.direction === "left" && "10px"};
+  right: ${(props: any) => props.direction === "right" && "10px"};
   margin: auto;
   cursor: pointer;
   opacity: 0.5;
@@ -45,7 +45,7 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   transition: all 1.5s ease;
-  transform: translateX(${(props:any) => props.slideIndex * -100}vw);
+  transform: translateX(${(props: any) => props.slideIndex * -100}vw);
 `;
 
 const Slide = styled.div`
@@ -53,7 +53,7 @@ const Slide = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
-  background-color: #${(props:any) => props.bg};
+  background-color: #${(props: any) => props.bg};
 `;
 
 const ImgContainer = styled.div`
@@ -81,19 +81,14 @@ const Desc = styled.p`
   letter-spacing: 3px;
 `;
 
-
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [open, setOpened] = useState(false);
-  const dispatch= useDispatch();
+  const dispatch = useDispatch();
   const notificationState = useSelector(
     (state: RootState) => state.rootReducer.notification
-  );  
+  );
 
- 
-
-  const handleClick = (direction:any) => {
-  
+  const handleClick = (direction: any) => {
     if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
     } else {
@@ -103,18 +98,21 @@ const Slider = () => {
 
   return (
     <Container>
-          <Stack spacing={2} sx={{ width: "100%" }}>
-    
-      <Snackbar open={notificationState.open} autoHideDuration={3000}   onClose={() => dispatch(setOpen(false))}>
-        <Alert  severity={notificationState.severity} sx={{ width: "100%" }}>
-          { notificationState.text}
-        </Alert>
-      </Snackbar>
-    </Stack>
-      <Arrow  onClick={() => handleClick("left")}>
+      <Stack spacing={2} sx={{ width: "100%" }}>
+        <Snackbar
+          open={notificationState.open}
+          autoHideDuration={2000}
+          onClose={() => dispatch(setOpen(false))}
+        >
+          <Alert severity={notificationState.severity} sx={{ width: "100%" }}>
+            {notificationState.text}
+          </Alert>
+        </Snackbar>
+      </Stack>
+      <Arrow onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>
-      <Wrapper >
+      <Wrapper>
         {sliderItems.map((item) => (
           <Slide key={item.id}>
             <ImgContainer>
@@ -128,7 +126,7 @@ const Slider = () => {
           </Slide>
         ))}
       </Wrapper>
-      <Arrow  onClick={() => handleClick("right")}>
+      <Arrow onClick={() => handleClick("right")}>
         <ArrowRightOutlined />
       </Arrow>
     </Container>

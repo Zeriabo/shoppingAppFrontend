@@ -1,20 +1,27 @@
-import React ,{useState} from "react";
+import React, { useState } from "react";
 import {
   FavoriteBorderOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@material-ui/icons";
-import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, addProductToCartDetails } from "../redux/reducers/cartDetailsSlice";
+import {
+  addProduct,
+  addProductToCartDetails,
+} from "../redux/reducers/cartDetailsSlice";
 import { useSelect } from "@mui/base";
 import { RootState } from "../redux/app/store";
 import { ICartItem, IProductToAdd } from "../types/types";
 import { nextTick } from "process";
 import { setZoomedImage } from "../redux/reducers/ZoomedImageSlice";
 import { likeUnlikeProduct } from "../redux/reducers/productsSlice";
-import { setOpen, setSeverity, setText } from "../redux/reducers/notificationsSlice";
+import {
+  setOpen,
+  setSeverity,
+  setText,
+} from "../redux/reducers/notificationsSlice";
 
 const Info = styled.div`
   opacity: 0;
@@ -43,7 +50,7 @@ const Container = styled.div`
   background-color: #f5fbfd;
   position: relative;
 
-  &:hover ${Info}{
+  &:hover ${Info} {
     opacity: 1;
   }
 `;
@@ -77,27 +84,26 @@ const Icon = styled.div`
   }
 `;
 
+const Product = (item: any) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.rootReducer.user);
+  const likedProducts = useSelector(
+    (state: RootState) => state.rootReducer.products.likedProducts
+  );
 
-const Product = ( item :any) => {
-
-  const dispatch=useDispatch();
-  const user = useSelector( (state: RootState) => state.rootReducer.user);
-  const likedProducts = useSelector( (state: RootState) => state.rootReducer.products.likedProducts);
- 
-  const checkIfLiked=(item:any)=>{
-
-   const prod :any= likedProducts.find((foundproduct:any) => (item.id === foundproduct.id));
-  if(prod!=undefined)
-  {
-    return true
-  }else {
-    false
-  }
-     
+  const checkIfLiked = (item: any) => {
+    const prod: any = likedProducts.find(
+      (foundproduct: any) => item.id === foundproduct.id
+    );
+    if (prod != undefined) {
+      return true;
+    } else {
+      false;
     }
-const userCart=user.cart
+  };
+  const userCart = user.cart;
   function addItemToCart(item: any): void {
-    var itemToAdd:IProductToAdd={
+    var itemToAdd: IProductToAdd = {
       id: undefined,
       title: undefined,
       price: 0,
@@ -105,73 +111,65 @@ const userCart=user.cart
       category: undefined,
       description: undefined,
       image: undefined,
-      cartId: 0
+      cartId: 0,
+    };
+
+    itemToAdd = {
+      id: item.id,
+      title: item.title,
+      price: item.price,
+      category: item.category,
+      description: item.description,
+      image: item.image,
+      discount: item.discount,
+      cartId: userCart.id,
+    };
+
+    if (userCart.id != undefined) {
+      dispatch(addProductToCartDetails(itemToAdd));
+      dispatch(addProduct(itemToAdd));
+      dispatch(setOpen(true));
+      dispatch(setText(itemToAdd.title + " was added to cart"));
+      dispatch(setSeverity("info"));
+    } else {
+      dispatch(setOpen(true));
+      dispatch(setText("The user does not have a cart"));
+      dispatch(setSeverity("error"));
     }
-
-    
-  itemToAdd={
-    id: item.id,
-    title: item.title,
-    price: item.price,
-    category: item.category,
-    description: item.description,
-    image: item.image,
-    discount:item.discount,
-    cartId: userCart.id
   }
-
-  if(userCart.id!=undefined)
-  {
-    dispatch(addProductToCartDetails(itemToAdd))
-    dispatch(addProduct(itemToAdd))
-    dispatch(setOpen(true));
-    dispatch(setText(itemToAdd.title + " was added to cart"));
-    dispatch(setSeverity("info"))
-  }else{
-    dispatch(setOpen(true));
-    dispatch(setText("The user does not have a cart"));
-    dispatch(setSeverity("error"))
+  function zoom(obj: any): void {
+    dispatch(setZoomedImage(obj));
   }
-
+  function like(item: any): void {
+    dispatch(likeUnlikeProduct(item));
   }
-  function zoom(obj:any):void{
-   dispatch(setZoomedImage(obj))
-  }
-  function like(item:any):void{
-    dispatch(likeUnlikeProduct(item))
- 
-   }
 
   return (
     <Container>
       <Circle />
-      <Image src={item.item.image}/>
-     
- 
-     <Info>
-        {(user.cart!=undefined)?<Icon onClick={()=>addItemToCart(item.item)} >
-         <ShoppingCartOutlined />
-        </Icon >:null}
-        
+      <Image src={item.item.image} />
 
-        <Icon onClick={()=>zoom(item.item)}>
-          <SearchOutlined  />
+      <Info>
+        {user.cart != undefined ? (
+          <Icon onClick={() => addItemToCart(item.item)}>
+            <ShoppingCartOutlined />
+          </Icon>
+        ) : null}
+
+        <Icon onClick={() => zoom(item.item)}>
+          <SearchOutlined />
         </Icon>
-     
-        <Icon onClick={()=>like(item.item)}>
-    {
-      ( checkIfLiked(item.item))?<FavoriteOutlinedIcon />   :<FavoriteBorderOutlined />
-    }
-       
-          
+
+        <Icon onClick={() => like(item.item)}>
+          {checkIfLiked(item.item) ? (
+            <FavoriteOutlinedIcon />
+          ) : (
+            <FavoriteBorderOutlined />
+          )}
         </Icon>
       </Info>
-      
     </Container>
-    
   );
 };
 
 export default Product;
-
-

@@ -4,7 +4,7 @@ import { mobile } from "../responsive";
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { filterProducts } from "../redux/reducers/productsSlice";
-import {Link} from 'react-scroll'
+import { Link } from "react-scroll";
 const Container = styled.div`
   flex: 1;
   margin: 3px;
@@ -17,7 +17,6 @@ const Image = styled.img`
   height: 100%;
   object-fit: cover;
   ${mobile({ height: "20vh" })}
-
 `;
 
 const Info = styled.div`
@@ -33,29 +32,34 @@ const Info = styled.div`
 `;
 
 const Title = styled.h1`
-    color:white;
-    margin-bottom: 20px;
+  color: white;
+  margin-bottom: 20px;
 `;
 
-
-
-const CategoryItem = (item:any) => {
-  const dispatch=useDispatch();
-  function shopNow(item:any) {
-    console.log(item.id)
-    dispatch(filterProducts(item.id))
+const CategoryItem = (item: any) => {
+  const dispatch = useDispatch();
+  function shopNow(item: any) {
+    console.log(item.id);
+    dispatch(filterProducts(item.id));
   }
   return (
     <Container>
       <Image src={item.item.image} />
       <Info>
         <Title>{item.item.name}</Title>
-        <Link to="products" spy={true} smooth={true}>   <Button variant="contained" color="success" onClick={()=>shopNow(item.item)}>SHOP NOW </Button></Link>
+        <Link to="products" spy={true} smooth={true}>
+          {" "}
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => shopNow(item.item)}
+          >
+            SHOP NOW{" "}
+          </Button>
+        </Link>
       </Info>
     </Container>
   );
 };
 
 export default CategoryItem;
-
-

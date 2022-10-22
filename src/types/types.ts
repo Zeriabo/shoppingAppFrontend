@@ -75,6 +75,7 @@ export interface INotification {
   text: string | undefined;
   open: boolean;
   severity: "error" | "warning" | "info" | "success" | undefined;
+  duration: number;
 }
 export interface IFilteredProducts {
   products: IProduct[] | undefined;
