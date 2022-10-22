@@ -86,9 +86,13 @@ const Product = ( item :any) => {
  
   const checkIfLiked=(item:any)=>{
 
-    // const prod :any= likedProducts.find((foundproduct:any) => (item.id === foundproduct.id));
-    // return prod;
-  
+   const prod :any= likedProducts.find((foundproduct:any) => (item.id === foundproduct.id));
+  if(prod!=undefined)
+  {
+    return true
+  }else {
+    false
+  }
      
     }
 const userCart=user.cart
@@ -156,7 +160,7 @@ const userCart=user.cart
      
         <Icon onClick={()=>like(item.item)}>
     {
-      ( checkIfLiked(item.item)!=undefined)?<FavoriteOutlinedIcon />   :<FavoriteBorderOutlined />
+      ( checkIfLiked(item.item))?<FavoriteOutlinedIcon />   :<FavoriteBorderOutlined />
     }
        
           

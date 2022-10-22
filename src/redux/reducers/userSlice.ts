@@ -166,7 +166,10 @@ export const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     signin(state, action: PayloadAction<IUser>) {
-      state.user = action.payload;
+      if (action.payload.id != undefined) {
+        state.user = action.payload;
+        state.loading = "succeeded";
+      }
     },
     logout(state, action: PayloadAction<IUser>) {
       state.user = {
@@ -179,11 +182,13 @@ export const userSlice = createSlice({
       state.cart = null;
     },
     loadUser(state, action) {
-      state.user.id = action.payload.id;
-      state.user.image = action.payload.image;
-      state.user.name = action.payload.name;
-
-      state.user.email = action.payload.email;
+      if (action.payload.id != undefined) {
+        state.user.id = action.payload.id;
+        state.user.image = action.payload.image;
+        state.user.name = action.payload.name;
+        state.user.email = action.payload.email;
+      }
+      state.loading = "succeeded";
     },
     getUser: (state, action) => {
       return (state = { ...state });

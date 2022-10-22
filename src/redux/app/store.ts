@@ -21,9 +21,7 @@ function saveToLocalStorage(state: any) {
   }
 }
 
-// load string from localStarage and convert into an Object
-// invalid output must be undefined
-function loadFromLocalStorage() {
+export function loadFromLocalStorage() {
   try {
     const serialisedState = localStorage.getItem("persistantState");
     if (serialisedState === null) return undefined;
@@ -38,9 +36,9 @@ export const store = configureStore({
   reducer: {
     rootReducer,
   },
+  preloadedState,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   devTools: process.env.NODE_ENV !== "production",
-  preloadedState,
 });
 store.subscribe(() => saveToLocalStorage(store.getState()));
 setupListeners(store.dispatch);

@@ -8,18 +8,24 @@ import { fetchProducts } from './redux/reducers/productsSlice';
 import { fetchCategories } from './redux/reducers/categoriesSlice';
 import { RootState } from './redux/app/store';
 import { checkUserCart, fetchUser, getHistory} from './redux/reducers/userSlice';
-
-
 function App() {
   const dispatch= useDispatch()
+  const fullstate = useSelector( (state: RootState) => state.rootReducer);
   useEffect(() => {
+    //check the state
+   
 
-     dispatch(fetchUser()).then((res:any)=>{
-     dispatch(checkUserCart(res.payload))
-     dispatch(fetchProducts()) 
-     dispatch(fetchCategories())
-     
-    })
+
+    if (state.user.user.id==undefined)
+    {
+      dispatch(fetchUser()).then((res:any)=>{
+        dispatch(checkUserCart(res.payload))
+      });
+    }
+ 
+      dispatch(fetchProducts()) 
+      dispatch(fetchCategories())
+   
   }, []
   )
   const state = useSelector(

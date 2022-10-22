@@ -141,7 +141,13 @@ const responseSuccessGoogle = async (res: any) => {
    
  await dispatch(loginUser(loggedUser))
  await dispatch(checkUserCart(loggedUser.profile))
- 
+ if(userState.user.id)
+ {
+  dispatch(setOpen(true));
+  console.log(userState)
+  dispatch(setText("Welcome "+userState.user.name));
+  dispatch(setSeverity("success"))
+ }
   } catch (err:any) {
  
   dispatch(setOpen(true));
