@@ -11,18 +11,6 @@ RUN npm install -g npm@8.19.2
 # RUN npm ci
 # Build the app
 RUN  yarn install
-RUN  yarn add @mui/icons-material
-RUN  yarn add @material-ui/core
-RUN  yarn add @material-ui/icons
-RUN  yarn add @testing-library/jest-dom
-RUN  yarn add @types/passport-google-oauth20
-RUN  yarn add @types/passport-jwt
-RUN  yarn add @types/react-calendar
-RUN  yarn add axios
-RUN  yarn add passport-google-oauth20
-RUN  yarn add passport-jwt
-RUN  yarn add rc-image
-RUN  yarn add react-calendar
 RUN  yarn build
 RUN  yarn global add serve
 # ==== RUN =======
