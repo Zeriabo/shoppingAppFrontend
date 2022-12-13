@@ -220,7 +220,9 @@ const Navbar = () => {
               open={historyOpen}
               onClose={() => setHistoryOpen(false)}
             >
-              {history.length > 0 ? <History carts={history} /> : null}
+              {history != null && history.length > 0 ? (
+                <History carts={history} />
+              ) : null}
             </Drawer>
 
             <Badge
