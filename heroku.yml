@@ -1,13 +1,12 @@
 build:
   docker:
     web:
-      dockerfile: ./Dockerfile.dev
+      dockerfile: ./Dockerfile.web
   config:
-   REQUIREMENTS_FILENAME: heroku.yml
+    REQUIREMENTS_FILENAME: heroku.yml
 release:
- image: web
- command:
-   - ./release.sh
+  image: web
+  command:
+    - ./release.sh
 run:
- web: uwsgi --http 0:$PORT --wsgi-file ./config/wsgi.py --master --processes 4 --threads 2
-      
+  web: uwsgi --http 0:$PORT --wsgi-file ./config/wsgi.py --master --processes 4 --threads 2
