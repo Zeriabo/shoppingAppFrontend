@@ -12,18 +12,18 @@ RUN npm install -g npm@8.19.2
 # RUN npm ci
 # Build the app
 RUN  yarn install
-RUN  yarn install @mui/icons-material
-RUN  yarn install @material-ui/core
-RUN  yarn install @material-ui/icons
-RUN  yarn install @testing-library/jest-dom
-RUN  yarn install @types/passport-google-oauth20
-RUN  yarn install @types/passport-jwt
-RUN  yarn install @types/react-calendar
-RUN  yarn install axios
-RUN  yarn install passport-google-oauth20
-RUN  yarn install passport-jwt
-RUN  yarn install rc-image
-RUN  yarn install react-calendar
+RUN  yarn add @mui/icons-material
+RUN  yarn add @material-ui/core
+RUN  yarn add @material-ui/icons
+RUN  yarn add @testing-library/jest-dom
+RUN  yarn add @types/passport-google-oauth20
+RUN  yarn add @types/passport-jwt
+RUN  yarn add @types/react-calendar
+RUN  yarn add axios
+RUN  yarn add passport-google-oauth20
+RUN  yarn add passport-jwt
+RUN  yarn add rc-image
+RUN  yarn add react-calendar
 RUN  yarn build 
 # ==== RUN =======
 # Set the env to "production"
