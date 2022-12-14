@@ -1,11 +1,11 @@
 # ==== CONFIGURE =====
 # Use a Node 16 base image
-FROM node:16-alpine 
+FROM node:16-alpine as builder
 # Set the working directory to /app inside the container
 WORKDIR /app
 # Copy app files
 COPY . .
-RUN npm install -g npm@8.19.2
+RUN npm install -g npm@8.19.3
 
 # ==== BUILD =====
 # # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
@@ -24,11 +24,11 @@ RUN  yarn add passport-google-oauth20
 RUN  yarn add passport-jwt
 RUN  yarn add rc-image
 RUN  yarn add react-calendar
-RUN  yarn build 
+RUN  yarn  run build 
+
 # ==== RUN =======
 # Set the env to "production"
 ENV NODE_ENV production
 # Expose the port on which the app will be running (3000 is the default that `serve` uses)
-EXPOSE 5000
 # Start the app
 CMD [ "npx", "serve", "build" ]
