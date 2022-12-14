@@ -21,7 +21,7 @@ export const fetchCategories: any = createAsyncThunk(
   "getCategories",
   async () => {
     const response = await fetch(
-      "https://zshopping-backend.herokuapp.com/api/v1/category",
+      "https://zshoppingbackend.onrender.com/api/v1/category",
       {
         method: "GET",
         headers: {

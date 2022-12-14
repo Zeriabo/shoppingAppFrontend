@@ -25,7 +25,7 @@ export const fetchCartDetails: any = createAsyncThunk(
   "getCartDetails",
   async (id) => {
     return await axios.get(
-      "https://zshopping-backend.herokuapp.com/api/v1/cartdetails/" + id
+      "https://zshoppingbackend.onrender.com/api/v1/cartdetails/" + id
     );
   }
 );
@@ -36,7 +36,7 @@ export const addProductToCartDetails: any = createAsyncThunk(
     const cartId = data.cartId;
     const productId = data.id;
     await fetch(
-      "https://zshopping-backend.herokuapp.com/api/v1/cartdetails/" + cartId,
+      "https://zshoppingbackend.onrender.com/api/v1/cartdetails/" + cartId,
       {
         method: "POST",
         headers: {
@@ -56,7 +56,7 @@ export const checkOut: any = createAsyncThunk(
     const cartId = id;
 
     await fetch(
-      "https://zshopping-backend.herokuapp.com/api/v1/carts/" + cartId,
+      "https://zshoppingbackend.onrender.com/api/v1/carts/" + cartId,
       {
         method: "POST",
         headers: {
@@ -71,7 +71,7 @@ export const checkOut: any = createAsyncThunk(
 );
 export const getCartDetails = (id: any) => {
   axios
-    .get("https://zshopping-backend.herokuapp.com/api/v1/cartdetails/" + id)
+    .get("https://zshoppingbackend.onrender.com/api/v1/cartdetails/" + id)
     .then((res) => {
       //cartid
       return res.data;
@@ -84,7 +84,7 @@ export const removeProductFromCartDetails: any = createAsyncThunk(
     const id = data.id; //productId
     try {
       fetch(
-        "https://zshopping-backend.herokuapp.com/api/v1/cartdetails/remove/" +
+        "https://zshoppingbackend.onrender.com/api/v1/cartdetails/remove/" +
           data.cartId,
         {
           method: "POST",

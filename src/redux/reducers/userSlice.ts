@@ -36,7 +36,7 @@ export const loginUser: any = createAsyncThunk(
   "users/login",
   async (loggedUser: any) => {
     const response = await axios.post(
-      "https://zshopping-backend.herokuapp.com/api/v1/users/login",
+      "https://zshoppingbackend.onrender.com/api/v1/users/login",
       {
         user: loggedUser,
       },
@@ -53,7 +53,7 @@ export const loginUser: any = createAsyncThunk(
 
 export const signOut: any = createAsyncThunk("users/logout", async () => {
   const response = await axios.get(
-    "https://zshopping-backend.herokuapp.com/api/v1/users/logout"
+    "https://zshoppingbackend.onrender.com/api/v1/users/logout"
   );
   return response.data;
 });
@@ -65,7 +65,7 @@ export const fetchUser: any = createAsyncThunk("users/getUser", async () => {
     image: undefined,
   };
   const response = await fetch(
-    "https://zshopping-backend.herokuapp.com/api/v1/users/login/success",
+    "https://zshoppingbackend.onrender.com/api/v1/users/login/success",
     {
       method: "GET",
       headers: {
@@ -97,7 +97,7 @@ export const getHistory: any = createAsyncThunk(
   "users/getHistory",
   async (userId: any) => {
     const response: any = await fetch(
-      "https://zshopping-backend.herokuapp.com/api/v1/carts/paid/" + userId
+      "https://zshoppingbackend.onrender.com/api/v1/carts/paid/" + userId
     );
     const res = await response.json();
     return res;
@@ -112,7 +112,7 @@ export const checkUserCart: any = createAsyncThunk(
     var cart: any = null;
     const gettingUserID = axios
       .get(
-        "https://zshopping-backend.herokuapp.com/api/v1/users/get/" + user.email
+        "https://zshoppingbackend.onrender.com/api/v1/users/get/" + user.email
       )
       .then((response: any) => {
         if (response.data.body.result[0].email == user.email) {
@@ -122,7 +122,7 @@ export const checkUserCart: any = createAsyncThunk(
         } else {
           //user is not in user table and doesn't have a cart
           axios
-            .post("https://zshopping-backend.herokuapp.com/api/v1/users/", {
+            .post("https://zshoppingbackend.onrender.com/api/v1/users/", {
               body: user,
             })
             .then((res: any) => console.log(res));
@@ -134,25 +134,25 @@ export const checkUserCart: any = createAsyncThunk(
 
     if (userId > 0) {
       const cartApi = await axios.get(
-        "https://zshopping-backend.herokuapp.com/api/v1/carts/user/" + userId
+        "https://zshoppingbackend.onrender.com/api/v1/carts/user/" + userId
       );
       if (cartApi.data[0] != undefined) {
         return cartApi.data[0];
       } else {
         axios
-          .post("https://zshopping-backend.herokuapp.com/api/v1/users/", {
+          .post("https://zshoppingbackend.onrender.com/api/v1/users/", {
             user,
           })
           .then((res) => res)
           .catch((err) => console.log(err));
         axios
-          .post("https://zshopping-backend.herokuapp.com/api/v1/carts/", {
+          .post("https://zshoppingbackend.onrender.com/api/v1/carts/", {
             userId: user.id,
           })
           .then((res) => res)
           .catch((err) => console.log(err));
         const cartApi = await axios.get(
-          "https://zshopping-backend.herokuapp.com/api/v1/carts/user/",
+          "https://zshoppingbackend.onrender.com/api/v1/carts/user/",
           { params: { userId: userId } }
         );
         return cartApi.data[0];
