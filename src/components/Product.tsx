@@ -11,10 +11,8 @@ import {
   addProduct,
   addProductToCartDetails,
 } from "../redux/reducers/cartDetailsSlice";
-import { useSelect } from "@mui/base";
 import { RootState } from "../redux/app/store";
-import { ICartItem, IProductToAdd } from "../types/types";
-import { nextTick } from "process";
+import { IProductToAdd } from "../types/types";
 import { setZoomedImage } from "../redux/reducers/ZoomedImageSlice";
 import { likeUnlikeProduct } from "../redux/reducers/productsSlice";
 import {

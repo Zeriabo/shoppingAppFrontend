@@ -1,6 +1,3 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/app/store";
-
 export const sliderItems = [
   {
     id: 1,

@@ -1,11 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "ShoppingReact App",
+  "name": "Shopping React App Sample",
   "icons": [
     {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+  
     }
   ],
   "start_url": ".",

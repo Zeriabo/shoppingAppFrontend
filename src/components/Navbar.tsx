@@ -1,19 +1,14 @@
 import { Badge, Drawer } from "@material-ui/core";
-import { Search, ShoppingCartOutlined } from "@material-ui/icons";
-import axios, { AxiosResponse } from "axios";
+import { ShoppingCartOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
-import { config } from "dotenv";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../redux/app/store";
 import { mobile } from "../responsive";
 import {
   checkUserCart,
-  fetchUser,
   getHistory,
   loginUser,
-  logout,
-  signin,
   signOut,
 } from "../redux/reducers/userSlice";
 import { ICartItem, IProductToAdd, IUser } from "../types/types";
@@ -38,7 +33,7 @@ import {
 import { Link } from "react-scroll";
 import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
-import { selectOpen, setSeverity } from "../redux/reducers/notificationsSlice";
+import { setSeverity } from "../redux/reducers/notificationsSlice";
 import { setOpen, setText } from "../redux/reducers/notificationsSlice";
 
 const Container = styled.div`
@@ -226,6 +221,7 @@ const Navbar = () => {
             </Drawer>
 
             <Badge
+              overlap="rectangular"
               badgeContent={history != null ? history.length : 0}
               color="primary"
               onClick={() => setHistoryOpen(true)}
@@ -296,6 +292,7 @@ const Navbar = () => {
               />
             </Drawer>
             <Badge
+              overlap="rectangular"
               badgeContent={cart.cartItems.length}
               color="primary"
               onClick={() => setCartOpen(true)}

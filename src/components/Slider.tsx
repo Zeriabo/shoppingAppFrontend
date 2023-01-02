@@ -7,7 +7,6 @@ import { mobile } from "../responsive";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import Alert from "@mui/material/Alert";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/app/store";
