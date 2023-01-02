@@ -1,6 +1,8 @@
 # ==== CONFIGURE =====
 # Use a Node 16 base image
-FROM node:16-alpine 
+FROM node:16-alpine
+
+ARG N8N_VERSION=0.209.0
 # Set the working directory to /app inside the container
 WORKDIR /app
 # Copy app files
