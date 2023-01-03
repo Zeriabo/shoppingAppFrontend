@@ -8,7 +8,6 @@ COPY . /usr/local/bin/web/
 
 RUN yarn install --prefix client
 
-RUN npm run --prefix client build
 
 
 RUN yarn run build
