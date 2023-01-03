@@ -5,28 +5,20 @@ FROM node:16-alpine
 ARG N8N_VERSION=0.209.0
 # Set the working directory to /app inside the container
 WORKDIR /app
-# Copy app files
-COPY . .
-RUN npm install -g npm@8.19.2
+
+
 # ==== BUILD =====
 # # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 # RUN npm ci
 # Build the app
-RUN  yarn install
-RUN  yarn add @mui/icons-material
-RUN  yarn add @material-ui/core
-RUN  yarn add @material-ui/icons
-RUN  yarn add @testing-library/jest-dom
-RUN  yarn add @types/passport-google-oauth20
-RUN  yarn add @types/passport-jwt
-RUN  yarn add @types/react-calendar
-RUN  yarn add axios
-RUN  yarn add passport-google-oauth20
-RUN  yarn add passport-jwt
-RUN  yarn add rc-image
-RUN  yarn add react-calendar
-RUN  yarn build
-RUN  yarn global add serve
+COPY package.json ./
+
+COPY yarn.lock ./
+RUN yarn install --frozen-lockfile
+# Copy app files
+COPY . .
+
+RUN yarn run build
 # ==== RUN =======
 # Set the env to "production"
 ENV NODE_ENV production
