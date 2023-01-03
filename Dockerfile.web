@@ -11,5 +11,7 @@ RUN yarn install --prefix client
 
 
 RUN yarn run build
+
+RUN yarn install react-scripts
 # ==== RUN =======
 CMD ["npm", "start"]
