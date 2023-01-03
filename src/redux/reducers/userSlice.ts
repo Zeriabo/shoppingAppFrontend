@@ -1,3 +1,4 @@
+/*eslint no-unused-expressions: "error"*/
 import {
   AnyAction,
   createAsyncThunk,

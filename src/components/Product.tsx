@@ -96,7 +96,7 @@ const Product = (item: any) => {
     if (prod != undefined) {
       return true;
     } else {
-      false;
+      return false;
     }
   };
   const userCart = user.cart;
