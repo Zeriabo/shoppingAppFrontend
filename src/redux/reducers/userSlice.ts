@@ -82,10 +82,10 @@ export const fetchUser: any = createAsyncThunk("users/getUser", async () => {
     for (let key of Object.keys(res.cookies)) {
       var myobj = JSON.parse(res.cookies[key]);
       if (myobj.passport.user) {
-        (userObj.image = myobj.passport.user.avatar),
-          (userObj.name = myobj.passport.user.name),
-          (userObj.id = Number(myobj.passport.user.id)),
-          (userObj.email = myobj.passport.user.email);
+        userObj.image = myobj.passport.user.avatar;
+        userObj.name = myobj.passport.user.name;
+        userObj.id = Number(myobj.passport.user.id);
+        userObj.email = myobj.passport.user.email;
       }
     }
   }
