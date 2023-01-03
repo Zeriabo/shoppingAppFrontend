@@ -2,25 +2,16 @@
 # Use a Node 16 base image
 FROM node:16-alpine
 
-ARG N8N_VERSION=0.209.0
-# Set the working directory to /app inside the container
-WORKDIR /app
+WORKDIR /usr/local/bin/web
+
+COPY . /usr/local/bin/web/
+
+RUN yarn install --prefix client
 
 
-# ==== BUILD =====
-# # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
-# RUN npm ci
-# Build the app
-COPY package.json ./
-
-COPY yarn.lock ./
-RUN yarn install --frozen-lockfile
-# Copy app files
-COPY . .
 
 RUN yarn run build
+
+RUN yarn install react-scripts
 # ==== RUN =======
-# Set the env to "production"
-ENV NODE_ENV production
-# Start the app
-CMD [ "npx", "serve", "build" ]
+CMD ["npm", "start"]
