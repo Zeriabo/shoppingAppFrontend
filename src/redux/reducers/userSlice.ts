@@ -1,3 +1,4 @@
+/* eslint no-use-before-define: 0 */
 import {
   AnyAction,
   createAsyncThunk,
@@ -224,9 +225,15 @@ export const userSlice = createSlice({
       }),
       builder.addCase(fetchUser.rejected, (state) => {
         state.loading = "failed";
+        state.cart = undefined;
+        state.history = initialState.history;
+        state.user = initialState.user;
       });
-    builder.addCase(checkUserCart.pending, (state, action) => {
-      state.cart = null;
+    builder.addCase(checkUserCart.pending, (state) => {
+      state.history = initialState.history;
+      state.user = initialState.user;
+      state.cart = undefined;
+      state.loading = "pending";
     }),
       builder.addCase(
         checkUserCart.fulfilled,
